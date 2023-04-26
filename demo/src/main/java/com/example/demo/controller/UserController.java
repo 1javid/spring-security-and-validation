@@ -91,17 +91,19 @@ public class UserController {
         }
 
         if (selectedRole != null) {
-            String currentRoles = userDto.getRoles();
-            if (currentRoles.startsWith(selectedRole)) {
-                currentRoles = currentRoles.replace(selectedRole + ";", "");
-            } else if (currentRoles.endsWith(selectedRole)) {
-                currentRoles = currentRoles.replace(";" + selectedRole, "");
-            }
-//            else {
-//                currentRoles = currentRoles.replace(selectedRole, "");
-//            }
 
-            userDto.setRoles(currentRoles);
+            if (!selectedRole.equals("ROLE_USER")) {
+                String currentRoles = userDto.getRoles();
+                if (currentRoles.startsWith(selectedRole)) {
+                    currentRoles = currentRoles.replace(selectedRole + ";", "");
+                } else if (currentRoles.endsWith(selectedRole)) {
+                    currentRoles = currentRoles.replace(";" + selectedRole, "");
+                } else {
+                    currentRoles = currentRoles.replace(selectedRole, "");
+                }
+
+                userDto.setRoles(currentRoles);
+            }
         }
 
         userService.saveRoleToUser(userDto.getRoles(), id);
