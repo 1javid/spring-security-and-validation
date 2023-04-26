@@ -19,12 +19,12 @@ public class DbUserBootstrapper {
                                   PasswordEncoder encoder) {
         return (args) -> {
             User adminUser = new User("admin", encoder.encode("admin"),
-                    "admin_user@ada.edu.az");
+                    "admin@ada.edu.az");
 
             userRepo.save(adminUser.addRole("ROLE_ADMIN"));
 
-            userRepo.save(new User("nsadili", encoder.encode("12345"),
-                    "nsadili@ada.edu.az"));
+            userRepo.save(new User("user", encoder.encode("user"),
+                    "user@ada.edu.az"));
         };
     }
 

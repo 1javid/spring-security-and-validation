@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Users</title>
+</head>
+<body>
+<table border="1px">
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Role</th>
+  </tr>
+
+  <p th:if="${users} != null" th:text="|Number of available communities: ${#lists.size(users)}|"></p>
+
+  <tr th:if="${#lists.isEmpty(users)}">
+    <td colspan="4">The community list is empty</td>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}" />
+    <td th:text="${user.username}" />
+    <td th:text="${user.roles}" />
+    <td>
+      <th:block th:with="id=${user.id}">
+        <a th:href="@{'users/' + ${id}}">More</a>
+      </th:block>
+    </td>
+  </tr>
+</table>
+<a href="#" onclick="history.go(-1)">Back to the panel</a>
+<a th:href="@{'/logout'}">Logout</a>
+</body>
+</html>

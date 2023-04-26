@@ -28,15 +28,15 @@ public class BaseController {
         model.addAttribute("message", welcomeMessage);
         if(userDetailsService.loadUserByUsername(SecurityConfig.currentUser()).getAuthorities().toString().contains("ROLE_ADMIN")) {
             SecurityConfig.nullUser();
-            return "index_admin";
+            return "admin/index";
         }
         SecurityConfig.nullUser();
-        return "index_user";
+        return "user/index";
     }
 
     @GetMapping("/bye")
     public String getFarewellPage(Model model){
         model.addAttribute("message", farewellMessage);
-        return "index_user";
+        return "user/index";
     }
 }
