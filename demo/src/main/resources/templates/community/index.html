@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Communities</title>
+</head>
+<body>
+<table border="1px">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+
+    <p th:if="${communities} != null" th:text="|Number of available communities: ${#lists.size(communities)}|"></p>
+
+    <tr th:if="${#lists.isEmpty(communities)}">
+        <td colspan="4">The community list is empty</td>
+    </tr>
+    <tr th:each="community : ${communities}">
+        <td th:text="${community.id}" />
+        <td th:text="${community.name}" />
+        <td th:text="${community.description}" />
+        <td>
+            <th:block th:with="id=${community.id}">
+                <a th:href="@{'communities/' + ${id} + '/update'}">Update</a>
+                <a th:href="@{'communities/' + ${id} + '/delete'}">Delete</a>
+            </th:block>
+        </td>
+    </tr>
+</table>
+<a href="#" onclick="history.go(-1)">Back to the panel</a>
+<a th:href="@{'/logout'}">Logout</a>
+</body>
+</html>

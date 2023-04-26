@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Community</title>
+</head>
+<body class="update-body">
+<h2>Update The Community</h2>
+<hr>
+<div>
+    <form action="#" method="POST" th:action="@{'update'}" th:object="${community}">
+        <input type="hidden" th:field="*{id}"/> <br/>
+        <input type="text" th:field="*{name}" placeholder="Name"/> <br/>
+        <input type="text" th:field="*{description}" placeholder="Description"/> <br/>
+        <input type="submit" value="Update Community"/>
+    </form>
+</div>
+<hr>
+<a href="#" onclick="history.go(-1)">Back to the list</a>
+<a th:href="@{'/logout'}">Logout</a>
+</body>
+</html>
