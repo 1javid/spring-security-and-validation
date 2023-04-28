@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.model.entity.Community;
 import com.example.demo.service.CommunityService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +40,11 @@ public class CommunityController {
     }
 
     @PostMapping("communities/new")
-    public String save(@ModelAttribute("community") Community community) {
+    public String save(@Valid @ModelAttribute Community community, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors())
+            return "community/new";
+
         communityService.save(community);
         return "redirect:/user/communities";
     }
@@ -50,10 +56,16 @@ public class CommunityController {
     }
 
     @PostMapping("communities/{id}/update")
-    public String postCommunity(Model model, @ModelAttribute Community community, Long id) {
-        model.addAttribute("community", community);
-        communityService.save(community);
-        return "redirect:/user/communities";
+    public String postCommunity(@PathVariable("id") Long id, @Valid @ModelAttribute("community") Community community, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "community/update";
+        } else {
+            Community existingCommunity = communityService.getById(id);
+            existingCommunity.setName(community.getName());
+            existingCommunity.setDescription(community.getDescription());
+            communityService.save(existingCommunity);
+            return "redirect:/user/communities";
+        }
     }
 
     @GetMapping("communities/{id}/delete")

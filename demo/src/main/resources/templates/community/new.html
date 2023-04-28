@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Create a community</title>
 </head>
 <body class="new-body">
@@ -17,8 +19,19 @@
 <hr>
 <div>
     <form action="#" method="POST" th:action="@{new}" th:object="${community}">
-        <input type="text" th:field="*{name}" placeholder="Community name"/> <br/>
-        <input type="text" th:field="*{description}" placeholder="Community description"/> <br/>
+        <div th:if="${#fields.hasAnyErrors()}" class="alert alert-info">
+            <p>Please Correct Errors Below</p>
+        </div>
+        <div class="mb-3">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></p>
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="Community name"/> <br/>
+        </div>
+        <div class="mb-3">
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="alert alert-danger"></p>
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" th:field="*{description}" class="form-control" placeholder="Community description"/> <br/>
+        </div>
         <input type="submit" value="Save Community"/>
     </form>
 </div>

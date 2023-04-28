@@ -39,11 +39,9 @@ public class SecurityConfig {
         return username -> {
             this.username = username;
 
-            System.out.println("username: " + username);
-
             Optional<User> res = repo.findByUsername(username);
             return res.orElseThrow(() ->
-                new UsernameNotFoundException(username + "not found")
+                    new UsernameNotFoundException(username + "not found")
             );
         };
     }

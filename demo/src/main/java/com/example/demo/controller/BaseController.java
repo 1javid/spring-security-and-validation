@@ -7,8 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("currentUser")
 public class BaseController {
 
     @Autowired
@@ -26,12 +28,15 @@ public class BaseController {
     @GetMapping("/")
     public String getWelcomePage(Model model){
         model.addAttribute("message", welcomeMessage);
-        if(userDetailsService.loadUserByUsername(SecurityConfig.currentUser()).getAuthorities().toString().contains("ROLE_ADMIN")) {
+        if(SecurityConfig.currentUser() != null) {
+            if (userDetailsService.loadUserByUsername(SecurityConfig.currentUser()).getAuthorities().toString().contains("ROLE_ADMIN")) {
+                SecurityConfig.nullUser();
+                return "admin/index";
+            }
             SecurityConfig.nullUser();
-            return "admin/index";
+            return "user/index";
         }
-        SecurityConfig.nullUser();
-        return "user/index";
+        return "index";
     }
 
     @GetMapping("/bye")
