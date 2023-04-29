@@ -16,7 +16,7 @@ These instructions will help you get a copy of the project up and running on you
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/SITE-ADA/as2-spring-security-and-validation-1javid.git
+git clone https://github.com/1javid/spring-security-and-validation.git
 ```
 
 2. Build the project:
