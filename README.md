@@ -1,4 +1,4 @@
-# My Spring Security and Validation Application
+# Spring Security and Validation Application
 
 This is a Spring Boot application that demonstrates how to build a web application with Spring Security and request validation. It includes examples of how to secure endpoints and validate incoming requests to ensure data integrity and prevent unauthorized access.
 
